@@ -236,6 +236,39 @@ int main() {
         menuPointer();
         cin >> pilihan;
         cin.ignore();
+        
+        if (pilihan == 1) {
+            cout << "Masukkan nama pelanggan: ";
+            getline(cin, nama);
+            cout << "Masukkan jenis pakaian: ";
+            getline(cin, pakaian);
+            cout << "Pilih layanan (1: Cuci, 2: Setrika,Cuci & Setrika): ";
+            cin >> jenisLayanan;
+            cin.ignore();
+            aundry.tambahCucian(nama, pakaian, jenisLayanan);
+        } else if (pilihan == 2) {
+            laundry.tampilkanCucian();
+        } else if (pilihan == 3) {
+            laundry.hapusCucian();
+        } else if (pilihan == 4) {
+            tampilkanPakaian();
+        } else if (pilihan == 5) {
+           tampilkanTarif(); 
+        } else if (pilihan == 6) {
+           cekEfisiensiLayanan();
+        } else if (pilihan == 7) {
+           hitungTotalBiaya(); 
+        } else if (pilihan == 8) {
+            laundry.hapusSemuaCucian();
+            cout << "Terima kasih telah menggunakan layanan kami!" << endl;
+        } else {
+           cout << "Pilihan tidak valid." << endl;  
+        }
+      }
+    }
+
+    return 0;
+}
 
 
 
