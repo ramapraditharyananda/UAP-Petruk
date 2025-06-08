@@ -211,4 +211,17 @@ void hitungTotalBiaya(AntrianLaundry& laundry) {
     cout << "Total seluruh biaya laundry dari semua pelanggan: Rp " << total << endl;
 }
 
+void tampilkanMenu() {
+    cout << "=== MENU UTAMA ===" << endl;
+    cout << "1. Tambah Cucian" << endl;
+    cout << "2. Tampilkan Daftar Cucian" << endl;
+    cout << "3. Hapus Cucian yang Selesai" << endl;
+    cout << "4. Lihat Daftar Jenis Pakaian" << endl;
+    cout << "5. Lihat Tarif Laundry" << endl;
+    cout << "6. Cek Efisiensi Layanan (Knapsack)" << endl;
+    cout << "7. Hitung Total Biaya Semua Transaksi (Rekap)" << endl;
+    cout << "8. Keluar" << endl;
+    cout << "Pilihan: ";
+}
+
 
