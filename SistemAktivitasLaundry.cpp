@@ -224,4 +224,18 @@ void tampilkanMenu() {
     cout << "Pilihan: ";
 }
 
+int main() {
+    AntrianLaundry laundry;
+    int pilihan = 0;
+    string nama, pakaian;
+    int jenisLayanan;
+
+    menuPointer = tampilkanMenu;
+
+    while (pilihan != 8) {
+        menuPointer();
+        cin >> pilihan;
+        cin.ignore();
+
+
 
