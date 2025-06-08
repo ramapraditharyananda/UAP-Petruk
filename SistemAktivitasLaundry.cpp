@@ -116,3 +116,66 @@ public:
             return "Tidak Diketahui";
     }
 };
+
+class AntrianLaundry {
+private:
+    Laundry* head;
+public:
+    AntrianLaundry() {
+        head = nullptr;
+    }
+
+    void tambahCucian(string nama, string pakaian, int layanan) {
+        Laundry* temp = head;
+        while (temp != nullptr) {
+            if (temp->namaPelanggan == nama && temp->layanan == layanan) {
+                temp->tambahPakaian(pakaian);
+                cout << "Cucian untuk " << nama << " diperbarui." << endl;
+                return;
+            }
+            temp = temp->next;
+        }
+
+        Laundry* baru = new Laundry(nama, pakaian, layanan);
+        if (head == nullptr) {
+            head = baru;
+        } else {
+            temp = head;
+            while (temp->next != nullptr) {
+                temp = temp->next;
+            }
+            temp->next = baru;
+        }
+        cout << "Cucian atas nama " << nama << " berhasil ditambahkan." << endl;
+    }
+
+    void tampilkanCucian() {
+        if (head == nullptr) {
+            cout << "Tidak ada cucian dalam antrian." << endl;
+            return;
+        }
+
+        Laundry* temp = head;
+        cout << "Daftar Cucian: " << endl;
+        while (temp != nullptr) {
+            cout << "- " << temp->namaPelanggan << " (" << temp->getLayanan() << "): " << endl;
+            for (auto& item : temp->jenisPakaian) {
+                cout << "  * " << item.first << ": " << item.second << endl;
+            }
+            cout << "  Total Berat: " << temp->hitungBerat() << " kg" << endl;
+            cout << "  Total Harga: Rp " << temp->hitungHarga() << endl;
+            temp = temp->next;
+        }
+    }
+
+    void hapusCucian() {
+        if (head == nullptr) {
+            cout << "Tidak ada cucian untuk dihapus." << endl;
+            return;
+        }
+
+        Laundry* temp = head;
+        head = head->next;
+        cout << "Cucian atas nama " << temp->namaPelanggan << " telah selesai." << endl;
+        delete temp;
+    }
