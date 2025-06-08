@@ -65,3 +65,54 @@ void cekEfisiensiLayanan() {
     int hasil = knapsack(items, n, budget);
     cout << "Nilai layanan maksimal yang bisa didapatkan: " << hasil << endl;
 }
+
+class Laundry {
+public:
+    string namaPelanggan;
+    map<string, int> jenisPakaian;
+    int layanan;
+    Laundry* next;
+
+    Laundry(string nama, string pakaian, int pilihLayanan) {
+        namaPelanggan = nama;
+        jenisPakaian[pakaian] = 1;
+        layanan = pilihLayanan;
+        next = nullptr;
+    }
+
+    void tambahPakaian(string pakaian) {
+        jenisPakaian[pakaian]++;
+    }
+
+    int hitungBerat() {
+        int total = 0;
+        for (auto& item : jenisPakaian) {
+            total += item.second;
+        }
+        return (total + 1) / 2;
+    }
+
+    int hitungHarga() {
+        int berat = hitungBerat();
+        int index = (berat > 2) ? 2 : berat - 1;
+        if (layanan == 1)
+            return tarifLaundry[index][0];
+        else if (layanan == 2)
+            return tarifLaundry[index][1];
+        else if (layanan == 3)
+            return tarifLaundry[index][0] + tarifLaundry[index][1];
+        else
+            return 0;
+    }
+
+    string getLayanan() {
+        if (layanan == 1)
+            return "Cuci Saja";
+        else if (layanan == 2)
+            return "Setrika Saja";
+        else if (layanan == 3)
+            return "Cuci & Setrika";
+        else
+            return "Tidak Diketahui";
+    }
+};
