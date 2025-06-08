@@ -210,3 +210,23 @@ void hitungTotalBiaya(AntrianLaundry& laundry) {
     }
     cout << "Total seluruh biaya laundry dari semua pelanggan: Rp " << total << endl;
 }
+
+void hitungTotalBiaya(AntrianLaundry& laundry) {
+    Laundry* temp = laundry.getHead();
+    if (temp == nullptr) {
+        cout << "Tidak ada transaksi untuk dihitung." << endl;
+        return;
+    }
+
+    int total = 0;
+    cout << "Rekap Biaya Laundry:" << endl;
+    while (temp != nullptr) {
+        int harga = temp->hitungHarga();
+        cout << "- " << temp->namaPelanggan << ": Rp " << harga << endl;
+        total += harga;
+        temp = temp->next;
+    }
+    cout << "Total seluruh biaya laundry dari semua pelanggan: Rp " << total << endl;
+}
+
+
