@@ -317,3 +317,52 @@ int main() {
     int pilihan = 0;
     string nama;
     int jenisLayanan;
+
+while (pilihan != 10) {
+        tampilkanMenu();
+        cin >> pilihan;
+        cin.ignore();
+
+        switch (pilihan) {
+            case 1:
+                cout << "Masukkan nama pelanggan: ";
+                getline(cin, nama);
+                cout << "Pilih layanan (1: Cuci, 2: Setrika, 3: Cuci & Setrika): ";
+                cin >> jenisLayanan;
+                cin.ignore();
+                laundry.tambahCucian(nama, jenisLayanan);
+                break;
+            case 2:
+                laundry.tampilkanCucian();
+                break;
+            case 3:
+                laundry.hapusCucian();
+                break;
+            case 4:
+                tampilkanPakaian();
+                break;
+            case 5:
+                tampilkanTarif();
+                break;
+            case 6:
+                hitungTotalBiaya(laundry);
+                break;
+            case 7:
+                tampilkanUrutanLaundryTermahal(laundry);
+                break;
+            case 8:
+                cekEfisiensiLayanan();
+                break;
+            case 9:
+                laundry.cariBarangDenganKeyword();
+                break;
+            case 10:
+                laundry.hapusSemuaCucian();
+                cout << "Semua data telah dihapus. Terima kasih telah menggunakan layanan kami!" << endl;
+                return 0;
+            default:
+                cout << "Pilihan tidak valid." << endl;
+        }
+    }
+    return 0;
+}
