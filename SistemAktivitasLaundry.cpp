@@ -257,3 +257,57 @@ public:
 
     Laundry* getHead() { return head; }
 };
+    void hitungTotalBiaya(AntrianLaundry& laundry) {
+    Laundry* temp = laundry.getHead();
+    if (!temp) {
+        cout << "Tidak ada transaksi." << endl;
+        return;
+    }
+
+    int total = 0;
+    cout << "Rekap Biaya Laundry:" << endl;
+    while (temp) {
+        int harga = temp->hitungHarga();
+        cout << "- " << temp->namaPelanggan << ": Rp " << harga << endl;
+        total += harga;
+        temp = temp->next;
+    }
+    cout << "Total biaya seluruh laundry: Rp " << total << endl;
+}
+
+void tampilkanUrutanLaundryTermahal(AntrianLaundry& laundry) {
+    map<int, string> urutanHarga;
+    Laundry* temp = laundry.getHead();
+    if (!temp) {
+        cout << "Tidak ada cucian." << endl;
+        return;
+    }
+
+    while (temp) {
+        int harga = temp->hitungHarga();
+        string deskripsi = temp->namaPelanggan + " (" + temp->getLayanan() + ")";
+        while (urutanHarga.find(harga) != urutanHarga.end())
+            harga++;
+        urutanHarga[harga] = deskripsi;
+        temp = temp->next;
+    }
+
+    cout << "=== Urutan Pelanggan berdasarkan Harga (Termahal ke Termurah) ===" << endl;
+    for (auto it = urutanHarga.rbegin(); it != urutanHarga.rend(); ++it)
+        cout << "- " << it->second << ": Rp " << it->first << endl;
+}
+
+void tampilkanMenu() {
+    cout << "=== MENU UTAMA ===" << endl;
+    cout << "1. Tambah Cucian" << endl;
+    cout << "2. Tampilkan Daftar Cucian" << endl;
+    cout << "3. Hapus Cucian yang Selesai" << endl;
+    cout << "4. Lihat Daftar Jenis Pakaian" << endl;
+    cout << "5. Lihat Tarif Laundry" << endl;
+    cout << "6. Hitung Total Biaya Semua Transaksi" << endl;
+    cout << "7. Tampilkan Urutan Laundry Termahal" << endl;
+    cout << "8. Cek Efisiensi Layanan (Knapsack)" << endl;
+    cout << "9. Cari Jenis Barang Laundry" << endl;
+    cout << "10. Keluar dan Hapus Semua Data" << endl;
+    cout << "Pilihan: ";
+}
