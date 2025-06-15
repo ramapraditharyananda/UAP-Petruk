@@ -311,3 +311,9 @@ void tampilkanMenu() {
     cout << "10. Keluar dan Hapus Semua Data" << endl;
     cout << "Pilihan: ";
 }
+
+int main() {
+    AntrianLaundry laundry;
+    int pilihan = 0;
+    string nama;
+    int jenisLayanan;
