@@ -157,3 +157,103 @@ public:
         cout << endl;
     }
 };
+
+class AntrianLaundry {
+private:
+    Laundry* head;
+public:
+    AntrianLaundry() { head = nullptr; }
+
+    void tambahCucian(string nama, int layanan) {
+        Laundry* temp = head;
+        while (temp != nullptr) {
+            if (temp->namaPelanggan == nama && temp->layanan == layanan) {
+                inputJenisPakaian(temp);
+                cout << "Cucian untuk " << nama << " diperbarui." << endl;
+                return;
+            }
+            temp = temp->next;
+        }
+
+        Laundry* baru = new Laundry(nama, layanan);
+        inputJenisPakaian(baru);
+        if (head == nullptr) head = baru;
+        else {
+            temp = head;
+            while (temp->next != nullptr)
+                temp = temp->next;
+            temp->next = baru;
+        }
+
+        cout << "Cucian atas nama " << nama << " berhasil ditambahkan." << endl;
+        baru->tampilkanNota();
+    }
+
+    void inputJenisPakaian(Laundry* data) {
+        for (auto& item : tarifPerItem) {
+            int jumlah;
+            cout << "Masukkan jumlah " << item.first << ": ";
+            cin >> jumlah;
+            if (jumlah > 0)
+                data->tambahPakaian(item.first, jumlah);
+        }
+        cin.ignore();
+    }
+
+    void tampilkanCucian() {
+        if (!head) {
+            cout << "Tidak ada cucian dalam antrian." << endl;
+            return;
+        }
+        Laundry* temp = head;
+        cout << "Daftar Cucian:" << endl;
+        while (temp) {
+            cout << "- " << temp->namaPelanggan << " (" << temp->getLayanan() << "):" << endl;
+            for (auto& item : temp->jenisPakaian)
+                cout << "  * " << item.first << ": " << item.second << endl;
+            cout << "  Total Harga: Rp " << temp->hitungHarga() << endl;
+            temp = temp->next;
+        }
+    }
+
+    void cariBarangDenganKeyword() {
+        string keyword;
+        cout << "Masukkan keyword jenis barang: ";
+        getline(cin, keyword);
+
+        string keywordLower = toLower(keyword);
+        bool ditemukan = false;
+
+        for (auto& item : tarifPerItem) {
+            if (toLower(item.first).find(keywordLower) != string::npos) {
+                cout << "Ditemukan: " << item.first << " - Rp " << item.second << endl;
+                ditemukan = true;
+            }
+        }
+
+        if (!ditemukan) {
+            cout << "Tidak ditemukan barang dengan kata kunci tersebut." << endl;
+        }
+    }
+
+    void hapusCucian() {
+        if (!head) {
+            cout << "Tidak ada cucian untuk dihapus." << endl;
+            return;
+        }
+        Laundry* temp = head;
+        head = head->next;
+        cout << "Cucian atas nama " << temp->namaPelanggan << " telah selesai." << endl;
+        delete temp;
+    }
+
+    void hapusSemuaCucian() {
+        while (head) {
+            Laundry* temp = head;
+            head = head->next;
+            delete temp;
+        }
+    }
+
+    Laundry* getHead() { return head; }
+};
