@@ -84,3 +84,76 @@ int knapsackRecursive(ItemLaundry items[], int i, int budget) {
 
     return memo[i][budget];
 }
+
+void cekEfisiensiLayanan() {
+    ItemLaundry items[] = {
+        {"Cuci 1kg", 5000, 3},
+        {"Setrika 1kg", 8000, 4},
+        {"Cuci 2kg", 10000, 6},
+        {"Setrika 2kg", 15000, 7},
+        {"Cuci 3kg", 15000, 8},
+        {"Setrika 3kg", 20000, 10}
+    };
+
+    int budget;
+    cout << "Masukkan budget laundry (Rp): ";
+    cin >> budget;
+    int n = sizeof(items) / sizeof(items[0]);
+
+    for (int i = 0; i < MAX_ITEMS; i++)
+        for (int j = 0; j < MAX_BUDGET; j++)
+            memo[i][j] = -1;
+
+    int hasil = knapsackRecursive(items, n - 1, budget);
+    cout << "Nilai layanan maksimal yang bisa didapatkan: " << hasil << endl;
+}
+
+class Laundry {
+public:
+    string namaPelanggan;
+    map<string, int> jenisPakaian;
+    int layanan;
+    Laundry* next;
+
+    Laundry(string nama, int pilihLayanan) {
+        namaPelanggan = nama;
+        layanan = pilihLayanan;
+        next = nullptr;
+    }
+
+    void tambahPakaian(string pakaian, int jumlah) {
+        jenisPakaian[pakaian] += jumlah;
+    }
+
+    int hitungHarga() {
+        int total = 0;
+        for (auto& item : jenisPakaian) {
+            int tarif = getTarifDenganStrcmp(item.first, layanan);
+            total += tarif * item.second;
+        }
+        return total;
+    }
+
+    string getLayanan() {
+        if (layanan == 1) return "Cuci Saja";
+        if (layanan == 2) return "Setrika Saja";
+        if (layanan == 3) return "Cuci & Setrika";
+        return "Tidak Diketahui";
+    }
+
+    void tampilkanNota() {
+        cout << endl << "======= NOTA PEMBAYARAN =======" << endl;
+        cout << "Nama Pelanggan: " << namaPelanggan << endl;
+        cout << "Layanan: " << getLayanan() << endl;
+        cout << "Detail Pakaian:" << endl;
+        for (auto& item : jenisPakaian) {
+            int tarif = getTarifDenganStrcmp(item.first, layanan);
+            int jumlah = item.second;
+            int subtotal = tarif * jumlah;
+            cout << "- " << item.first << " x " << jumlah << " = Rp " << subtotal << endl;
+        }
+        cout << "Total: Rp " << hitungHarga() << endl;
+        cout << "===============================" << endl;
+        cout << endl;
+    }
+};
